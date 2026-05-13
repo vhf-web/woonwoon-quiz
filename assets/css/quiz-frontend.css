@@ -100,8 +100,8 @@
 }
 
 .ww-quiz .ww-opt {
-	background: #f8f8f6;
-	border: 1px solid #e8e8e8;
+	background: #fff;
+	border: 1px solid #DBCDA1;
 	border-radius: 0;
 	padding: 0.9rem 1rem;
 	text-align: left;
@@ -117,15 +117,20 @@
 }
 
 .ww-quiz .ww-opt:hover {
-	border-color: #3D5A80;
-	background: #3D5A80;
-	color:#fff
+	border-color: #3d5a80;
+	background: #3d5a80;
+	color: #fff;
+}
+
+.ww-quiz .ww-opt:hover .ww-let {
+	color: #fff;
+	background: rgba(255, 255, 255, 0.2);
 }
 
 .ww-quiz .ww-opt.sel {
-	background: var(--ww-color1);
-	border-color: var(--ww-color1);
-	color: var(--ww-color2);
+	background: #3d5a80;
+	border-color: #3d5a80;
+	color: #fff;
 }
 
 .ww-quiz .ww-let {
@@ -142,8 +147,8 @@
 }
 
 .ww-quiz .ww-opt.sel .ww-let {
-	background: rgba(255, 255, 255, 0.15);
-	color: var(--ww-color2);
+	background: rgba(255, 255, 255, 0.2);
+	color: #fff;
 }
 
 .ww-quiz .ww-nav {
@@ -154,7 +159,6 @@
 
 .ww-quiz .ww-btn {
 	background: #3d5a80;
-	background: var(--ww-color1);
 	color: #fff;
 	border: none;
 	border-radius: 0;
@@ -189,7 +193,7 @@
 	text-align: center;
 	margin-bottom: 2rem;
 	padding-bottom: 2rem;
-	border-bottom: 1px solid #e8e8e8;
+
 }
 
 .ww-quiz .ww-rlbl {
@@ -237,26 +241,26 @@
 }
 
 .ww-quiz .ww-cta-main {
-	background-color: transparent;
-	font-family: var(--ww-font-accent);
-	font-size: var(--e-global-typography-accent-font-size, 15px);
-	font-weight: var(--e-global-typography-accent-font-weight, 500);
-	text-transform: var(--e-global-typography-accent-text-transform, none);
-	fill: var(--e-global-color-primary, var(--ww-color1));
-	color: var(--e-global-color-primary, var(--ww-color1));
-	border-style: solid;
-	border-width: 2px;
-	border-color: var(--e-global-color-primary, var(--ww-color1));
-	border-radius: 0;
-	padding: 0.85rem 2rem;
-	cursor: pointer;
-	text-decoration: none;
-	display: inline-block;
+	background-color: #3D5A80;
+    font-family: var(--ww-font-accent);
+    font-size: var(--e-global-typography-accent-font-size, 15px);
+    font-weight: 300;
+    text-transform: var(--e-global-typography-accent-text-transform, none);
+    fill: #3D5A80;
+    color: #fff;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #3D5A80;
+    border-radius: 0;
+    padding: 0.85rem 2rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .ww-quiz .ww-cta-main:hover {
 	opacity: 0.85;
-	color: var(--e-global-color-primary, var(--ww-color1));
+	color: #fff;
 }
 
 .ww-quiz .ww-also {
@@ -265,10 +269,13 @@
 
 .ww-quiz .ww-also-title {
 	font-size: 14px;
-	color: #000;
-	margin: 0 0 1rem;
-	text-align: center;
-	font-family: inherit;
+    color: #000;
+    margin: 0 0 1rem;
+    text-align: center;
+    font-family: 'MONTSERRAT';
+    text-transform: uppercase;
+    color: #DBCDA1;
+
 }
 
 .ww-quiz .ww-secondary-results {
@@ -285,10 +292,10 @@
 
 .ww-quiz .ww-sec-card {
 	background: #fff;
-	border: 1px solid #DBCDA1;
-	border-radius: 0;
-	padding: 1.25rem;
-	text-align: center;
+    border: 1px solid #DBCDA1;
+    border-radius: 0;
+    padding: 4rem 2rem;
+    text-align: center;
 }
 
 .ww-quiz .ww-sec-name {
@@ -300,11 +307,12 @@
 
 .ww-quiz .ww-sec-desc {
 	color: #000;
-	line-height: 1.5;
-	margin: 0 0 1rem;
-	font-size: 1em;
-	font-weight: 300;
-	font-family: inherit;
+    line-height: 1.5;
+    margin: 0 0 1rem;
+    font-size: 1em;
+    font-weight: 300;
+    font-family: 'MONTSERRAT';
+	min-height: 100px;
 }
 
 .ww-quiz .ww-cta-sec {
