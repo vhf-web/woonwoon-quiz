@@ -18,9 +18,10 @@ function ww_quiz_shortcode($atts) {
 
     usort($results, fn($a, $b) => intval($b['min']) - intval($a['min']));
 
-    $eyebrow   = esc_html($settings['eyebrow']  ?? '');
-    $title     = esc_html($settings['title']    ?? 'Welcher Berliner Bezirk passt zu dir?');
-    $subtitle  = esc_html($settings['subtitle'] ?? count($questions) . ' Fragen - sofortiges Ergebnis');
+    $eyebrow     = esc_html($settings['eyebrow']  ?? '');
+    $title       = esc_html($settings['title']    ?? 'Welcher Berliner Bezirk passt zu dir?');
+    $title_after = trim((string) ($settings['title_after'] ?? ''));
+    $subtitle    = esc_html($settings['subtitle'] ?? count($questions) . ' Fragen - sofortiges Ergebnis');
     $color1    = sanitize_hex_color($settings['color1'] ?? '#3d5a80');
     $color2    = sanitize_hex_color($settings['color2'] ?? '#e8d5b0');
     $uid       = 'wwq' . $id;
@@ -40,6 +41,7 @@ function ww_quiz_shortcode($atts) {
         <div class="ww-hero">
             <?php if ($eyebrow !== ''): ?><p class="ww-eyebrow"><?php echo $eyebrow; ?></p><?php endif; ?>
             <h2 class="elementor-heading-title"><?php echo $title; ?></h2>
+            <?php if ($title_after !== ''): ?><p class="ww-after-title"><?php echo nl2br(esc_html($title_after)); ?></p><?php endif; ?>
             <p class="ww-subtitle"><?php echo $subtitle; ?></p>
             <div class="ww-pbar"><div class="ww-pfill" id="<?php echo esc_attr($uid); ?>-prog"></div></div>
             <div class="ww-plbl" id="<?php echo esc_attr($uid); ?>-lbl">Frage 1 von <?php echo count($questions); ?></div>

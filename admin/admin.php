@@ -37,11 +37,12 @@ function ww_admin_save() {
 
         if ($tab === 'settings') {
             $settings = [
-                'eyebrow'  => sanitize_text_field($_POST['s_eyebrow'] ?? ''),
-                'title'    => sanitize_text_field($_POST['s_title'] ?? ''),
-                'subtitle' => sanitize_text_field($_POST['s_subtitle'] ?? ''),
-                'color1'   => sanitize_hex_color($_POST['s_color1'] ?? '#3d5a80'),
-                'color2'   => sanitize_hex_color($_POST['s_color2'] ?? '#e8d5b0'),
+                'eyebrow'     => sanitize_text_field($_POST['s_eyebrow'] ?? ''),
+                'title'       => sanitize_text_field($_POST['s_title'] ?? ''),
+                'title_after' => sanitize_textarea_field($_POST['s_title_after'] ?? ''),
+                'subtitle'    => sanitize_text_field($_POST['s_subtitle'] ?? ''),
+                'color1'      => sanitize_hex_color($_POST['s_color1'] ?? '#3d5a80'),
+                'color2'      => sanitize_hex_color($_POST['s_color2'] ?? '#e8d5b0'),
             ];
             update_post_meta($qid, '_ww_settings', $settings);
             wp_update_post(['ID' => $qid, 'post_title' => $settings['title']]);
@@ -200,6 +201,7 @@ function ww_admin_edit() {
         <table class="form-table">
             <tr><th>Eyebrow (ueber Titel)</th><td><input type="text" name="s_eyebrow" value="<?php echo esc_attr($settings['eyebrow'] ?? ''); ?>" class="large-text"></td></tr>
             <tr><th>Angezeigter Titel</th><td><input type="text" name="s_title" value="<?php echo esc_attr($settings['title'] ?? ''); ?>" class="large-text"></td></tr>
+            <tr><th>Text nach Titel</th><td><textarea name="s_title_after" rows="3" class="large-text" placeholder="Optional: ein Absatz direkt unter der Ueberschrift im Hero."><?php echo esc_textarea($settings['title_after'] ?? ''); ?></textarea></td></tr>
             <tr><th>Kleine Beschreibung (unter Titel)</th><td><input type="text" name="s_subtitle" value="<?php echo esc_attr($settings['subtitle'] ?? ''); ?>" class="large-text"></td></tr>
             <tr><th>Primaerfarbe</th><td><input type="color" name="s_color1" value="<?php echo esc_attr($settings['color1'] ?? '#3d5a80'); ?>"></td></tr>
             <tr><th>Akzentfarbe</th><td><input type="color" name="s_color2" value="<?php echo esc_attr($settings['color2'] ?? '#e8d5b0'); ?>"></td></tr>

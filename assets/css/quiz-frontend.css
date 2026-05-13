@@ -39,6 +39,14 @@
 	font-weight:300;
 }
 
+.ww-quiz .ww-hero .ww-after-title {
+	font-size: 15px;
+	line-height: 1.5;
+	color: rgba(255, 255, 255, 0.82);
+	margin: 0 0 0.75rem;
+	font-family: inherit;
+}
+
 .ww-quiz .ww-hero .ww-subtitle {
 	font-size: 14px;
 	color: rgba(255, 255, 255, 0.75);
@@ -144,8 +152,9 @@
 	margin-top: 1.25rem;
 }
 
-.ww-quiz .ww-btn, button {
-	background: #3D5A80;
+.ww-quiz .ww-btn {
+	background: #3d5a80;
+	background: var(--ww-color1);
 	color: #fff;
 	border: none;
 	border-radius: 0;
@@ -164,8 +173,7 @@
 	pointer-events: all;
 }
 
-.ww-quiz .ww-btn.on:hover,
-button:hover {
+.ww-quiz .ww-btn.on:hover {
 	opacity: 0.85;
 }
 
