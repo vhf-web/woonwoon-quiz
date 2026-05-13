@@ -6,7 +6,6 @@
  */
 
 .ww-quiz {
-	max-width: 720px;
 	margin: 0 auto;
 	font-family: inherit;
 	--ww-font-accent: var(--e-global-typography-accent-font-family), sans-serif;
@@ -37,6 +36,7 @@
 .ww-quiz .ww-hero h2.elementor-heading-title {
 	margin: 0 0 0.4rem;
 	color: var(--ww-color2);
+	font-weight:300;
 }
 
 .ww-quiz .ww-hero .ww-subtitle {
@@ -109,8 +109,9 @@
 }
 
 .ww-quiz .ww-opt:hover {
-	border-color: #bbb;
-	background: #fff;
+	border-color: #3D5A80;
+	background: #3D5A80;
+	color:#fff
 }
 
 .ww-quiz .ww-opt.sel {
@@ -123,14 +124,13 @@
 	width: 28px;
 	height: 28px;
 	border-radius: 0;
-	background: rgba(61, 90, 128, 0.1);
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	font-size: 12px;
 	font-weight: 500;
 	flex-shrink: 0;
-	color: #666;
+	color: #000;
 }
 
 .ww-quiz .ww-opt.sel .ww-let {
@@ -144,8 +144,8 @@
 	margin-top: 1.25rem;
 }
 
-.ww-quiz .ww-btn {
-	background: var(--ww-color1);
+.ww-quiz .ww-btn, button {
+	background: #3D5A80;
 	color: #fff;
 	border: none;
 	border-radius: 0;
@@ -164,7 +164,8 @@
 	pointer-events: all;
 }
 
-.ww-quiz .ww-btn.on:hover {
+.ww-quiz .ww-btn.on:hover,
+button:hover {
 	opacity: 0.85;
 }
 
@@ -255,8 +256,8 @@
 }
 
 .ww-quiz .ww-also-title {
-	font-size: 13px;
-	color: #888;
+	font-size: 14px;
+	color: #000;
 	margin: 0 0 1rem;
 	text-align: center;
 	font-family: inherit;
@@ -275,8 +276,8 @@
 }
 
 .ww-quiz .ww-sec-card {
-	background: #f8f8f6;
-	border: 1px solid #e8e8e8;
+	background: #fff;
+	border: 1px solid #DBCDA1;
 	border-radius: 0;
 	padding: 1.25rem;
 	text-align: center;

@@ -119,7 +119,7 @@ function ww_quiz_shortcode($atts) {
             for (var j = 0; j < secondary.length; j++) {
                 var s = secondary[j];
                 var sDesc = escH(s.desc || '');
-                secHtml += '<div class="ww-sec-card"><p class="ww-sec-name">' + escH(s.name) + '</p><p class="ww-sec-desc">' + sDesc + '</p><a class="ww-cta-sec" href="' + escH(s.url) + '">Entdecken</a></div>';
+                secHtml += '<div class="ww-sec-card"><p class="ww-sec-name">' + escH(s.name) + '</p><p class="ww-sec-desc">' + sDesc + '</p><a class="ww-cta-sec" href="' + escH(s.url) + '">Bezirk ' + escH(s.name) + ' entdecken</a></div>';
             }
             var alsoBlock = secondary.length > 0 ? '<div class="ww-also"><p class="ww-also-title">Passt auch zu dir</p><div class="ww-secondary-results">' + secHtml + '</div></div>' : '';
             area().innerHTML =
@@ -129,7 +129,7 @@ function ww_quiz_shortcode($atts) {
                 '<div class="ww-badge">' + escH(main.name) + '</div>' +
                 '<div class="ww-traits">' + traits + '</div>' +
                 '<p class="ww-desc">' + escH(main.desc) + '</p>' +
-                '<a class="ww-cta-main" href="' + escH(main.url) + '">Entdecken</a>' +
+                '<a class="ww-cta-main" href="' + escH(main.url) + '">Bezirk ' + escH(main.name) + ' entdecken</a>' +
                 '</div>' + alsoBlock +
                 '<button type="button" class="ww-restart" onclick="' + UID + '_restart()">Quiz neu starten</button>' +
                 '</div>';
