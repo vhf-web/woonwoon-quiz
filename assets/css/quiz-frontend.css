@@ -1,0 +1,338 @@
+/**
+ * Woonwoon Quiz – frontend styles.
+ *
+ * Per-quiz colors are set inline on .ww-quiz: --ww-color1 (hero / accents), --ww-color2 (hero title accent).
+ * Elementor: uses --e-global-* variables when the Site Kit defines them; otherwise sensible fallbacks.
+ */
+
+.ww-quiz {
+	max-width: 720px;
+	margin: 0 auto;
+	font-family: inherit;
+	--ww-font-accent: var(--e-global-typography-accent-font-family), sans-serif;
+	--ww-font-heading: var(--e-global-typography-primary-font-family), inherit;
+}
+
+/* Hero */
+.ww-quiz .ww-hero {
+	background: var(--ww-color1);
+	padding: 2.5rem 2rem 2rem;
+	margin-bottom: 1.5rem;
+	text-align: left;
+	position: relative;
+	overflow: hidden;
+}
+
+.ww-quiz .ww-hero .ww-eyebrow {
+	font-size: 11px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.8);
+	margin: 0 0 0.4rem;
+	font-weight: 500;
+	font-family: inherit;
+}
+
+/* Let Elementor / theme typography win; only spacing + accent color */
+.ww-quiz .ww-hero h2.elementor-heading-title {
+	margin: 0 0 0.4rem;
+	color: var(--ww-color2);
+}
+
+.ww-quiz .ww-hero .ww-subtitle {
+	font-size: 14px;
+	color: rgba(255, 255, 255, 0.75);
+	margin: 0;
+	font-family: inherit;
+}
+
+.ww-quiz .ww-pbar {
+	height: 4px;
+	background: rgba(255, 255, 255, 0.15);
+	border-radius: 0;
+	margin-top: 1.5rem;
+}
+
+.ww-quiz .ww-pfill {
+	height: 4px;
+	background: var(--ww-color2);
+	border-radius: 0;
+	transition: width 0.4s ease;
+	width: 0%;
+}
+
+.ww-quiz .ww-plbl {
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.55);
+	margin-top: 5px;
+	text-align: left;
+	font-family: inherit;
+}
+
+/* Questions */
+.ww-quiz .ww-card {
+	background: #fff;
+	border: 1px solid #e8e8e8;
+	border-radius: 0;
+	padding: 2rem;
+}
+
+.ww-quiz .ww-q {
+	font-family: inherit;
+	font-size: 20px;
+	font-weight: 400;
+	margin: 0 0 1.25rem;
+	line-height: 1.4;
+	color: #1a1a1a;
+}
+
+.ww-quiz .ww-opts {
+	display: grid;
+	gap: 9px;
+}
+
+.ww-quiz .ww-opt {
+	background: #f8f8f6;
+	border: 1px solid #e8e8e8;
+	border-radius: 0;
+	padding: 0.9rem 1rem;
+	text-align: left;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: 14px;
+	color: #1a1a1a;
+	transition: border-color 0.15s, background 0.15s;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+}
+
+.ww-quiz .ww-opt:hover {
+	border-color: #bbb;
+	background: #fff;
+}
+
+.ww-quiz .ww-opt.sel {
+	background: var(--ww-color1);
+	border-color: var(--ww-color1);
+	color: var(--ww-color2);
+}
+
+.ww-quiz .ww-let {
+	width: 28px;
+	height: 28px;
+	border-radius: 0;
+	background: rgba(61, 90, 128, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+	font-weight: 500;
+	flex-shrink: 0;
+	color: #666;
+}
+
+.ww-quiz .ww-opt.sel .ww-let {
+	background: rgba(255, 255, 255, 0.15);
+	color: var(--ww-color2);
+}
+
+.ww-quiz .ww-nav {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 1.25rem;
+}
+
+.ww-quiz .ww-btn {
+	background: var(--ww-color1);
+	color: #fff;
+	border: none;
+	border-radius: 0;
+	padding: 0.7rem 1.75rem;
+	font-size: 14px;
+	font-family: var(--ww-font-accent);
+	cursor: pointer;
+	opacity: 0.3;
+	pointer-events: none;
+	transition: opacity 0.2s;
+	text-transform: uppercase;
+}
+
+.ww-quiz .ww-btn.on {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.ww-quiz .ww-btn.on:hover {
+	opacity: 0.85;
+}
+
+/* Result */
+.ww-quiz .ww-result {
+	background: #fff;
+	border: 1px solid #e8e8e8;
+	border-radius: 0;
+	padding: 2.5rem 2rem;
+}
+
+.ww-quiz .ww-main-result {
+	text-align: center;
+	margin-bottom: 2rem;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid #e8e8e8;
+}
+
+.ww-quiz .ww-rlbl {
+	font-family: Montserrat, sans-serif;
+	font-size: 19px;
+	color: #000;
+	margin: 0 0 6px;
+}
+
+.ww-quiz .ww-badge {
+	display: inline-block;
+	font-family: Montserrat, sans-serif;
+	font-size: clamp(28px, 5vw, 40px);
+	padding: 0.5rem 1.75rem;
+	border-radius: 0;
+	margin: 0 0 1rem;
+	background: transparent;
+	color: #000;
+}
+
+.ww-quiz .ww-traits {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin: 0 0 1rem;
+}
+
+.ww-quiz .ww-trait {
+	background: #fff;
+	border: 1px solid #dbcda1;
+	border-radius: 0;
+	padding: 4px 14px;
+	font-size: 13px;
+	color: #000;
+	font-family: Montserrat, sans-serif;
+}
+
+.ww-quiz .ww-desc {
+	font-size: 15px;
+	color: #555;
+	line-height: 1.65;
+	margin: 0 0 1.5rem;
+	font-family: inherit;
+}
+
+.ww-quiz .ww-cta-main {
+	background-color: transparent;
+	font-family: var(--ww-font-accent);
+	font-size: var(--e-global-typography-accent-font-size, 15px);
+	font-weight: var(--e-global-typography-accent-font-weight, 500);
+	text-transform: var(--e-global-typography-accent-text-transform, none);
+	fill: var(--e-global-color-primary, var(--ww-color1));
+	color: var(--e-global-color-primary, var(--ww-color1));
+	border-style: solid;
+	border-width: 2px;
+	border-color: var(--e-global-color-primary, var(--ww-color1));
+	border-radius: 0;
+	padding: 0.85rem 2rem;
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.ww-quiz .ww-cta-main:hover {
+	opacity: 0.85;
+	color: var(--e-global-color-primary, var(--ww-color1));
+}
+
+.ww-quiz .ww-also {
+	margin-top: 0;
+}
+
+.ww-quiz .ww-also-title {
+	font-size: 13px;
+	color: #888;
+	margin: 0 0 1rem;
+	text-align: center;
+	font-family: inherit;
+}
+
+.ww-quiz .ww-secondary-results {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+}
+
+@media (max-width: 500px) {
+	.ww-quiz .ww-secondary-results {
+		grid-template-columns: 1fr;
+	}
+}
+
+.ww-quiz .ww-sec-card {
+	background: #f8f8f6;
+	border: 1px solid #e8e8e8;
+	border-radius: 0;
+	padding: 1.25rem;
+	text-align: center;
+}
+
+.ww-quiz .ww-sec-name {
+	font-family: var(--ww-font-accent);
+	font-size: 26px;
+	color: #000;
+	margin: 0 0 0.4rem;
+}
+
+.ww-quiz .ww-sec-desc {
+	color: #000;
+	line-height: 1.5;
+	margin: 0 0 1rem;
+	font-size: 1em;
+	font-weight: 300;
+	font-family: inherit;
+}
+
+.ww-quiz .ww-cta-sec {
+	background: transparent;
+	color: #000;
+	border: 1.5px solid #000;
+	border-radius: 0;
+	padding: 0.55rem 1.25rem;
+	font-size: 16px;
+	font-family: var(--ww-font-accent);
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-block;
+	text-transform: uppercase;
+}
+
+.ww-quiz .ww-cta-sec:hover {
+	background: #000;
+	color: #fff;
+}
+
+.ww-quiz .ww-restart {
+	display: block;
+	text-align: center;
+	margin-top: 1.5rem;
+	font-size: 13px;
+	color: #bbb;
+	cursor: pointer;
+	text-decoration: underline;
+	background: none;
+	border: none;
+	border-radius: 0;
+	font-family: var(--ww-font-accent);
+	width: 100%;
+	text-transform: none;
+}
+
+.ww-quiz .ww-restart:hover {
+	color: #888;
+}
