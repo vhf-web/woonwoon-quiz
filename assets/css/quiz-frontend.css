@@ -1,68 +1,86 @@
 /**
  * Woonwoon Quiz – frontend styles.
  *
- * Per-quiz colors are set inline on .ww-quiz: --ww-color1 (hero / accents), --ww-color2 (hero title accent).
- * Elementor: uses --e-global-* variables when the Site Kit defines them; otherwise sensible fallbacks.
+ * Typography: sizes use rem only (via --ww-fs-* on .ww-quiz).
+ * Per-quiz colors: --ww-color1, --ww-color2 (inline on .ww-quiz).
  */
 
 .ww-quiz {
 	margin: 0 auto;
+	max-width: 45rem;
 	font-family: inherit;
+	font-size: 1rem;
+	line-height: 1.5;
 	--ww-font-accent: var(--e-global-typography-accent-font-family), sans-serif;
 	--ww-font-heading: var(--e-global-typography-primary-font-family), inherit;
+	/* Type scale (rem only) */
+	--ww-fs-2xs: 0.6875rem; /* 11 */
+	--ww-fs-xs: 0.75rem; /* 12 */
+	--ww-fs-sm: 0.8125rem; /* 13 */
+	--ww-fs-md: 0.875rem; /* 14 */
+	--ww-fs-base: 1rem; /* 16 */
+	--ww-fs-lg: 1.125rem; /* 18 */
+	--ww-fs-xl: 1.25rem; /* 20 */
+	--ww-fs-2xl: 1.625rem; /* 26 */
+	--ww-fs-badge: clamp(1.75rem, 4.5vw, 2.5rem);
+	--ww-space-opts: 0.375rem;
+	--ww-pad-card: 1.25rem;
+	--ww-pad-opt-y: 0.65rem;
+	--ww-pad-opt-x: 0.75rem;
+	--ww-let-size: 1.75rem;
 }
 
 /* Hero */
 .ww-quiz .ww-hero {
 	background: var(--ww-color1);
-	padding: 2.5rem 2rem 2rem;
-	margin-bottom: 1.5rem;
+	padding: 2rem 1.5rem 1.5rem;
+	margin-bottom: 1rem;
 	text-align: left;
 	position: relative;
 	overflow: hidden;
+	flex-shrink: 0;
 }
 
 .ww-quiz .ww-hero .ww-eyebrow {
-	font-size: 11px;
+	font-size: var(--ww-fs-2xs);
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: rgba(255, 255, 255, 0.8);
-	margin: 0 0 0.4rem;
+	margin: 0 0 0.35rem;
 	font-weight: 500;
 	font-family: inherit;
 }
 
-/* Let Elementor / theme typography win; only spacing + accent color */
 .ww-quiz .ww-hero h2.elementor-heading-title {
-	margin: 0 0 0.4rem;
+	margin: 0 0 0.35rem;
 	color: var(--ww-color2);
-	font-weight:300;
+	font-weight: 300;
 }
 
 .ww-quiz .ww-hero .ww-after-title {
-	font-size: 15px;
+	font-size: var(--ww-fs-md);
 	line-height: 1.5;
 	color: rgba(255, 255, 255, 0.82);
-	margin: 0 0 0.75rem;
+	margin: 0 0 0.65rem;
 	font-family: inherit;
 }
 
 .ww-quiz .ww-hero .ww-subtitle {
-	font-size: 14px;
+	font-size: var(--ww-fs-md);
 	color: rgba(255, 255, 255, 0.75);
 	margin: 0;
 	font-family: inherit;
 }
 
 .ww-quiz .ww-pbar {
-	height: 4px;
+	height: 0.25rem;
 	background: rgba(255, 255, 255, 0.15);
 	border-radius: 0;
-	margin-top: 1.5rem;
+	margin-top: 1rem;
 }
 
 .ww-quiz .ww-pfill {
-	height: 4px;
+	height: 0.25rem;
 	background: var(--ww-color2);
 	border-radius: 0;
 	transition: width 0.4s ease;
@@ -70,11 +88,16 @@
 }
 
 .ww-quiz .ww-plbl {
-	font-size: 12px;
+	font-size: var(--ww-fs-xs);
 	color: rgba(255, 255, 255, 0.55);
-	margin-top: 5px;
+	margin-top: 0.35rem;
 	text-align: left;
 	font-family: inherit;
+}
+
+/* Stage: on small screens scrolls so hero stays compact; question + opts stay reachable */
+.ww-quiz .ww-quiz-body {
+	min-height: 0;
 }
 
 /* Questions */
@@ -82,38 +105,41 @@
 	background: #fff;
 	border: 1px solid #e8e8e8;
 	border-radius: 0;
-	padding: 2rem;
+	padding: var(--ww-pad-card);
 }
 
 .ww-quiz .ww-q {
 	font-family: inherit;
-	font-size: 20px;
+	font-size: var(--ww-fs-xl);
 	font-weight: 400;
-	margin: 0 0 1.25rem;
-	line-height: 1.4;
+	margin: 0 0 0.85rem;
+	line-height: 1.35;
 	color: #1a1a1a;
 }
 
 .ww-quiz .ww-opts {
 	display: grid;
-	gap: 9px;
+	gap: var(--ww-space-opts);
 }
 
 .ww-quiz .ww-opt {
 	background: #fff;
-	border: 1px solid #DBCDA1;
+	border: 1px solid #dbcda1;
 	border-radius: 0;
-	padding: 0.9rem 1rem;
+	padding: var(--ww-pad-opt-y) var(--ww-pad-opt-x);
 	text-align: left;
 	cursor: pointer;
 	font-family: inherit;
-	font-size: 14px;
+	font-size: var(--ww-fs-md);
+	line-height: 1.3;
 	color: #1a1a1a;
-	transition: border-color 0.15s, background 0.15s;
+	transition: border-color 0.15s, background 0.15s, color 0.15s;
 	display: flex;
 	align-items: center;
-	gap: 12px;
+	gap: 0.65rem;
 	width: 100%;
+	box-sizing: border-box;
+	touch-action: manipulation;
 }
 
 .ww-quiz .ww-opt:hover {
@@ -134,13 +160,14 @@
 }
 
 .ww-quiz .ww-let {
-	width: 28px;
-	height: 28px;
+	width: var(--ww-let-size);
+	height: var(--ww-let-size);
+	min-width: var(--ww-let-size);
 	border-radius: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 12px;
+	font-size: var(--ww-fs-xs);
 	font-weight: 500;
 	flex-shrink: 0;
 	color: #000;
@@ -154,7 +181,7 @@
 .ww-quiz .ww-nav {
 	display: flex;
 	justify-content: flex-end;
-	margin-top: 1.25rem;
+	margin-top: 0.85rem;
 }
 
 .ww-quiz button.ww-btn {
@@ -162,14 +189,15 @@
 	color: #fff;
 	border: none;
 	border-radius: 0;
-	padding: 0.7rem 1.75rem;
-	font-size: 14px;
+	padding: 0.55rem 1.25rem;
+	font-size: var(--ww-fs-md);
 	font-family: var(--ww-font-accent);
 	cursor: pointer;
 	opacity: 0.3;
 	pointer-events: none;
 	transition: opacity 0.2s;
 	text-transform: uppercase;
+	touch-action: manipulation;
 }
 
 .ww-quiz button.ww-btn.on {
@@ -184,78 +212,79 @@
 /* Result */
 .ww-quiz .ww-result {
 	background: #fff;
-	border: 1px solid #e8e8e8;
+	border: 1px solid #dbcda1;
 	border-radius: 0;
-	padding: 2.5rem 2rem;
+	padding: 2rem 1.25rem;
 }
 
 .ww-quiz .ww-main-result {
 	text-align: center;
-	margin-bottom: 2rem;
-	padding-bottom: 2rem;
-
+	margin-bottom: 1.5rem;
+	padding-bottom: 1.5rem;
 }
 
 .ww-quiz .ww-rlbl {
 	font-family: Montserrat, sans-serif;
-	font-size: 19px;
+	font-size: 1.1875rem;
 	color: #000;
-	margin: 0 0 6px;
+	margin: 0 0 0.35rem;
 }
 
 .ww-quiz .ww-badge {
 	display: inline-block;
 	font-family: Montserrat, sans-serif;
-	font-size: clamp(28px, 5vw, 40px);
-	padding: 0.5rem 1.75rem;
+	font-size: var(--ww-fs-badge);
+	padding: 0.5rem 1.25rem;
 	border-radius: 0;
-	margin: 0 0 1rem;
+	margin: 0 0 0.75rem;
 	background: transparent;
 	color: #000;
+	line-height: 1.2;
 }
 
 .ww-quiz .ww-traits {
 	display: flex;
 	justify-content: center;
-	gap: 8px;
+	gap: 0.5rem;
 	flex-wrap: wrap;
-	margin: 0 0 1rem;
+	margin: 0 0 0.75rem;
 }
 
 .ww-quiz .ww-trait {
 	background: #fff;
 	border: 1px solid #dbcda1;
 	border-radius: 0;
-	padding: 4px 14px;
-	font-size: 13px;
+	padding: 0.25rem 0.875rem;
+	font-size: var(--ww-fs-sm);
 	color: #000;
 	font-family: Montserrat, sans-serif;
 }
 
 .ww-quiz .ww-desc {
-	font-size: 15px;
-	color: #555;
+	font-size: var(--ww-fs-lg);
+	color: #000;
 	line-height: 1.65;
-	margin: 0 0 1.5rem;
+	margin: 0 0 1.25rem;
 	font-family: inherit;
 }
 
 .ww-quiz .ww-cta-main {
-	background-color: #3D5A80;
-    font-family: var(--ww-font-accent);
-    font-size: var(--e-global-typography-accent-font-size, 15px);
-    font-weight: 300;
-    text-transform: var(--e-global-typography-accent-text-transform, none);
-    fill: #3D5A80;
-    color: #fff;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #3D5A80;
-    border-radius: 0;
-    padding: 0.85rem 2rem;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
+	background-color: #3d5a80;
+	font-family: var(--ww-font-accent);
+	font-size: var(--ww-fs-md);
+	font-weight: 300;
+	text-transform: var(--e-global-typography-accent-text-transform, none);
+	fill: #3d5a80;
+	color: #fff;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #3d5a80;
+	border-radius: 0;
+	padding: 0.75rem 1.5rem;
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-block;
+	touch-action: manipulation;
 }
 
 .ww-quiz .ww-cta-main:hover {
@@ -268,51 +297,44 @@
 }
 
 .ww-quiz .ww-also-title {
-	font-size: 14px;
-    color: #000;
-    margin: 0 0 1rem;
-    text-align: center;
-    font-family: 'MONTSERRAT';
-    text-transform: uppercase;
-    color: #DBCDA1;
-
+	font-size: var(--ww-fs-md);
+	color: #dbcda1;
+	margin: 0 0 0.75rem;
+	text-align: center;
+	font-family: Montserrat, sans-serif;
+	text-transform: uppercase;
 }
 
 .ww-quiz .ww-secondary-results {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 12px;
-}
-
-@media (max-width: 500px) {
-	.ww-quiz .ww-secondary-results {
-		grid-template-columns: 1fr;
-	}
+	gap: 0.75rem;
 }
 
 .ww-quiz .ww-sec-card {
 	background: #fff;
-    border: 1px solid #DBCDA1;
-    border-radius: 0;
-    padding: 4rem 2rem;
-    text-align: center;
+	border: 1px solid #dbcda1;
+	border-radius: 0;
+	padding: 1.25rem 1rem;
+	text-align: center;
 }
 
 .ww-quiz .ww-sec-name {
 	font-family: var(--ww-font-accent);
-	font-size: 26px;
+	font-size: var(--ww-fs-2xl);
 	color: #000;
-	margin: 0 0 0.4rem;
+	margin: 0 0 0.35rem;
+	line-height: 1.2;
 }
 
 .ww-quiz .ww-sec-desc {
 	color: #000;
-    line-height: 1.5;
-    margin: 0 0 1rem;
-    font-size: 1em;
-    font-weight: 300;
-    font-family: 'MONTSERRAT';
-	min-height: 100px;
+	line-height: 1.5;
+	margin: 0 0 0.75rem;
+	font-size: var(--ww-fs-md);
+	font-weight: 400;
+	font-family: Montserrat, sans-serif;
+	min-height: 0;
 }
 
 .ww-quiz .ww-cta-sec {
@@ -320,13 +342,14 @@
 	color: #000;
 	border: 1.5px solid #000;
 	border-radius: 0;
-	padding: 0.55rem 1.25rem;
-	font-size: 16px;
+	padding: 0.5rem 1rem;
+	font-size: var(--ww-fs-base);
 	font-family: var(--ww-font-accent);
 	cursor: pointer;
 	text-decoration: none;
 	display: inline-block;
 	text-transform: uppercase;
+	touch-action: manipulation;
 }
 
 .ww-quiz .ww-cta-sec:hover {
@@ -337,8 +360,8 @@
 .ww-quiz .ww-restart {
 	display: block;
 	text-align: center;
-	margin-top: 1.5rem;
-	font-size: 13px;
+	margin-top: 1.25rem;
+	font-size: var(--ww-fs-sm);
 	color: #bbb;
 	cursor: pointer;
 	text-decoration: underline;
@@ -348,8 +371,94 @@
 	font-family: var(--ww-font-accent);
 	width: 100%;
 	text-transform: none;
+	touch-action: manipulation;
 }
 
 .ww-quiz .ww-restart:hover {
 	color: #888;
+}
+
+/* Inside footer popup: outer box scrolls; do not lock quiz to viewport height */
+#ww-popup-box .ww-quiz {
+	max-height: none;
+	overflow: visible;
+	display: block;
+}
+
+#ww-popup-box .ww-quiz .ww-quiz-body {
+	overflow: visible;
+	flex: unset;
+	min-height: 0;
+}
+
+/* Mobile / short viewport: fit question + 4 options on screen where possible */
+@media (max-width: 600px) {
+	.ww-quiz {
+		max-height: 100dvh;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		box-sizing: border-box;
+		--ww-fs-xl: 1.0625rem; /* 17 */
+		--ww-fs-md: 0.8125rem; /* 13 */
+		--ww-fs-xs: 0.6875rem; /* 11 */
+		--ww-space-opts: 0.25rem;
+		--ww-pad-card: 0.75rem;
+		--ww-pad-opt-y: 0.45rem;
+		--ww-pad-opt-x: 0.55rem;
+		--ww-let-size: 1.5rem;
+	}
+
+	.ww-quiz .ww-hero {
+		padding: 0.85rem 1rem 0.65rem;
+		margin-bottom: 0.35rem;
+	}
+
+	.ww-quiz .ww-pbar {
+		margin-top: 0.65rem;
+	}
+
+	.ww-quiz .ww-quiz-body {
+		flex: 1 1 auto;
+		min-height: 0;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		overscroll-behavior: contain;
+	}
+
+	.ww-quiz .ww-q {
+		margin-bottom: 0.5rem;
+		line-height: 1.25;
+	}
+
+	.ww-quiz .ww-nav {
+		margin-top: 0.55rem;
+	}
+
+	.ww-quiz .ww-secondary-results {
+		grid-template-columns: 1fr;
+	}
+
+	.ww-quiz .ww-sec-name {
+		font-size: var(--ww-fs-xl);
+	}
+
+	.ww-quiz .ww-result {
+		padding: 1.25rem 0.85rem;
+	}
+}
+
+@media (max-width: 600px) and (max-height: 700px) {
+	.ww-quiz {
+		--ww-fs-xl: 1rem; /* 16 */
+		--ww-fs-md: 0.75rem; /* 12 */
+		--ww-space-opts: 0.2rem;
+		--ww-pad-opt-y: 0.4rem;
+		--ww-let-size: 1.375rem;
+	}
+
+	.ww-quiz .ww-hero .ww-subtitle,
+	.ww-quiz .ww-hero .ww-after-title {
+		font-size: var(--ww-fs-md);
+	}
 }

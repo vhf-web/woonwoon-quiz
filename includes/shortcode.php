@@ -5,26 +5,40 @@ add_shortcode('woonwoon_quiz', 'ww_quiz_shortcode');
 function ww_quiz_shortcode($atts) {
     $atts = shortcode_atts(['id' => 0], $atts);
     $id   = intval($atts['id']);
-    if (!$id) return '<p style="color:red">Quiz ID fehlt: <code>[woonwoon_quiz id="1"]</code></p>';
+    if (!$id) {
+        return '<p style="color:red">' . esc_html__('Quiz ID fehlt: [woonwoon_quiz id="1"]', 'woonwoon-quiz') . '</p>';
+    }
 
     $post = get_post($id);
-    if (!$post || $post->post_type !== 'ww_quiz') return '<p style="color:red">Quiz nicht gefunden.</p>';
+    if (!$post || $post->post_type !== 'ww_quiz') {
+        return '<p style="color:red">' . esc_html__('Quiz nicht gefunden.', 'woonwoon-quiz') . '</p>';
+    }
 
     $settings  = get_post_meta($id, '_ww_settings',  true) ?: [];
     $questions = get_post_meta($id, '_ww_questions', true) ?: [];
     $results   = get_post_meta($id, '_ww_results',   true) ?: [];
 
-    if (empty($questions) || empty($results)) return '<p style="color:red">Quiz hat noch keine Fragen oder Ergebnisse.</p>';
+    if (empty($questions) || empty($results)) {
+        return '<p style="color:red">' . esc_html__('Quiz hat noch keine Fragen oder Ergebnisse.', 'woonwoon-quiz') . '</p>';
+    }
 
     usort($results, fn($a, $b) => intval($b['min']) - intval($a['min']));
 
+    $default_title = __('Welcher Berliner Bezirk passt zu dir?', 'woonwoon-quiz');
+    $n_questions   = count($questions);
+    $default_sub   = sprintf(
+        /* translators: %d: number of questions */
+        _n('%d Frage - sofortiges Ergebnis', '%d Fragen - sofortiges Ergebnis', $n_questions, 'woonwoon-quiz'),
+        $n_questions
+    );
+
     $eyebrow     = esc_html($settings['eyebrow']  ?? '');
-    $title       = esc_html($settings['title']    ?? 'Welcher Berliner Bezirk passt zu dir?');
+    $title       = esc_html($settings['title']    ?? $default_title);
     $title_after = trim((string) ($settings['title_after'] ?? ''));
-    $subtitle    = esc_html($settings['subtitle'] ?? count($questions) . ' Fragen - sofortiges Ergebnis');
-    $color1    = sanitize_hex_color($settings['color1'] ?? '#3d5a80');
-    $color2    = sanitize_hex_color($settings['color2'] ?? '#e8d5b0');
-    $uid       = 'wwq' . $id;
+    $subtitle    = esc_html($settings['subtitle'] ?? $default_sub);
+    $color1      = sanitize_hex_color($settings['color1'] ?? '#3d5a80');
+    $color2      = sanitize_hex_color($settings['color2'] ?? '#e8d5b0');
+    $uid         = 'wwq' . $id;
 
     $q_json = wp_json_encode($questions);
     $r_json = wp_json_encode($results);
@@ -35,6 +49,26 @@ function ww_quiz_shortcode($atts) {
         esc_attr($color2)
     );
 
+    $progress_tpl = __('Frage {current} von {total}', 'woonwoon-quiz');
+    $plbl_initial = str_replace(
+        ['{current}', '{total}'],
+        ['1', (string) $n_questions],
+        $progress_tpl
+    );
+
+    $i18n = [
+        'next'          => __('Weiter', 'woonwoon-quiz'),
+        'showResult'    => __('Ergebnis anzeigen', 'woonwoon-quiz'),
+        'questionOf'    => $progress_tpl,
+        'yourResult'    => __('Dein Ergebnis', 'woonwoon-quiz'),
+        'yourDistrict'  => __('Dein Bezirk ist', 'woonwoon-quiz'),
+        'alsoTitle'     => __('Passt auch zu dir', 'woonwoon-quiz'),
+        'restart'       => __('Quiz neu starten', 'woonwoon-quiz'),
+        /* translators: {name} is replaced by the district / result name. */
+        'discover'      => __('Bezirk {name} entdecken', 'woonwoon-quiz'),
+    ];
+    $i18n_json = wp_json_encode($i18n, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+
     ob_start();
     ?>
     <div id="<?php echo esc_attr($uid); ?>" class="ww-quiz" style="<?php echo esc_attr($vars_style); ?>">
@@ -44,21 +78,30 @@ function ww_quiz_shortcode($atts) {
             <?php if ($title_after !== ''): ?><p class="ww-after-title"><?php echo nl2br(esc_html($title_after)); ?></p><?php endif; ?>
             <p class="ww-subtitle"><?php echo $subtitle; ?></p>
             <div class="ww-pbar"><div class="ww-pfill" id="<?php echo esc_attr($uid); ?>-prog"></div></div>
-            <div class="ww-plbl" id="<?php echo esc_attr($uid); ?>-lbl">Frage 1 von <?php echo count($questions); ?></div>
+            <div class="ww-plbl" id="<?php echo esc_attr($uid); ?>-lbl"><?php echo esc_html($plbl_initial); ?></div>
         </div>
-        <div id="<?php echo esc_attr($uid); ?>-area"></div>
+        <div class="ww-quiz-body">
+            <div id="<?php echo esc_attr($uid); ?>-area"></div>
+        </div>
     </div>
     <script>
     (function(){
         var UID   = '<?php echo esc_js($uid); ?>';
         var Q     = <?php echo $q_json; ?>;
         var R     = <?php echo $r_json; ?>;
+        var L     = <?php echo $i18n_json; ?>;
         var QUIZ_ID = <?php echo $id; ?>;
         R.sort(function(a,b){ return parseInt(b.min) - parseInt(a.min); });
         var cur = 0, ans = [], score = 0;
         var letters = ['A','B','C','D'];
         function $id(id){ return document.getElementById(id); }
         function area(){ return $id(UID+'-area'); }
+        function questionLbl(a, b) {
+            return L.questionOf.replace('{current}', String(a)).replace('{total}', String(b));
+        }
+        function discoverLbl(name) {
+            return L.discover.replace('{name}', name);
+        }
         function getTopResults(s) {
             var matched = [];
             for (var i = 0; i < R.length; i++) {
@@ -73,7 +116,7 @@ function ww_quiz_shortcode($atts) {
         function render() {
             var pct = Math.round((cur / Q.length) * 100);
             $id(UID+'-prog').style.width = pct + '%';
-            $id(UID+'-lbl').textContent = 'Frage ' + (cur+1) + ' von ' + Q.length;
+            $id(UID+'-lbl').textContent = questionLbl(cur + 1, Q.length);
             var q = Q[cur];
             var html = '<div class="ww-card"><p class="ww-q">' + escH(q.q) + '</p><div class="ww-opts">';
             for (var i = 0; i < q.opts.length; i++) {
@@ -82,7 +125,7 @@ function ww_quiz_shortcode($atts) {
                 html += '<span class="ww-let">' + letters[i] + '</span>' + escH(q.opts[i]) + '</button>';
             }
             html += '</div><div class="ww-nav"><button type="button" class="ww-btn" id="' + UID + '-next" onclick="' + UID + '_next()">';
-            html += (cur < Q.length - 1 ? 'Weiter' : 'Ergebnis anzeigen');
+            html += (cur < Q.length - 1 ? L.next : L.showResult);
             html += '</button></div></div>';
             area().innerHTML = html;
         }
@@ -101,7 +144,7 @@ function ww_quiz_shortcode($atts) {
         };
         function showResult() {
             $id(UID+'-prog').style.width = '100%';
-            $id(UID+'-lbl').textContent = 'Dein Ergebnis';
+            $id(UID+'-lbl').textContent = L.yourResult;
             var top = getTopResults(score);
             var main = top[0];
             var secondary = top.slice(1);
@@ -121,19 +164,19 @@ function ww_quiz_shortcode($atts) {
             for (var j = 0; j < secondary.length; j++) {
                 var s = secondary[j];
                 var sDesc = escH(s.desc || '');
-                secHtml += '<div class="ww-sec-card"><p class="ww-sec-name">' + escH(s.name) + '</p><p class="ww-sec-desc">' + sDesc + '</p><a class="ww-cta-sec" href="' + escH(s.url) + '">Bezirk ' + escH(s.name) + ' entdecken</a></div>';
+                secHtml += '<div class="ww-sec-card"><p class="ww-sec-name">' + escH(s.name) + '</p><p class="ww-sec-desc">' + sDesc + '</p><a class="ww-cta-sec" href="' + escH(s.url) + '">' + escH(discoverLbl(s.name)) + '</a></div>';
             }
-            var alsoBlock = secondary.length > 0 ? '<div class="ww-also"><p class="ww-also-title">Passt auch zu dir</p><div class="ww-secondary-results">' + secHtml + '</div></div>' : '';
+            var alsoBlock = secondary.length > 0 ? '<div class="ww-also"><p class="ww-also-title">' + escH(L.alsoTitle) + '</p><div class="ww-secondary-results">' + secHtml + '</div></div>' : '';
             area().innerHTML =
                 '<div class="ww-result">' +
                 '<div class="ww-main-result">' +
-                '<p class="ww-rlbl">Dein Bezirk ist</p>' +
+                '<p class="ww-rlbl">' + escH(L.yourDistrict) + '</p>' +
                 '<div class="ww-badge">' + escH(main.name) + '</div>' +
                 '<div class="ww-traits">' + traits + '</div>' +
                 '<p class="ww-desc">' + escH(main.desc) + '</p>' +
-                '<a class="ww-cta-main" href="' + escH(main.url) + '">Bezirk ' + escH(main.name) + ' entdecken</a>' +
+                '<a class="ww-cta-main" href="' + escH(main.url) + '">' + escH(discoverLbl(main.name)) + '</a>' +
                 '</div>' + alsoBlock +
-                '<button type="button" class="ww-restart" onclick="' + UID + '_restart()">Quiz neu starten</button>' +
+                '<button type="button" class="ww-restart" onclick="' + UID + '_restart()">' + escH(L.restart) + '</button>' +
                 '</div>';
         }
         window[UID+'_restart'] = function() {

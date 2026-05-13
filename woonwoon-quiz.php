@@ -14,6 +14,11 @@ define('WW_QUIZ_PATH', plugin_dir_path(__FILE__));
 define('WW_QUIZ_URL', plugin_dir_url(__FILE__));
 define('WW_QUIZ_CAP', 'edit_woonwoon_quiz');
 
+add_action('init', 'ww_quiz_load_textdomain');
+function ww_quiz_load_textdomain() {
+    load_plugin_textdomain('woonwoon-quiz', false, dirname(plugin_basename(__FILE__)) . '/languages');
+}
+
 require_once WW_QUIZ_PATH . 'includes/post-type.php';
 require_once WW_QUIZ_PATH . 'includes/roles.php';
 require_once WW_QUIZ_PATH . 'includes/shortcode.php';
